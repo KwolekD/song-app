@@ -1,0 +1,26 @@
+# Ogólne
+.DS_Store
+*.log
+.env
+.env.local
+.vscode
+.idea
+
+# Backend (Node.js)
+backend/node_modules/
+backend/.env
+backend/.env.test
+backend/coverage/
+backend/dist/
+
+# Frontend (React)
+my-album-app/node_modules/
+my-album-app/.env
+my-album-app/.env.local
+my-album-app/.eslintcache
+my-album-app/build/
+my-album-app/.next/  # Jeśli używasz Next.js
+my-album-app/out/    # Jeśli używasz Next.js
+
+# Systemowe
+Thumbs.db
