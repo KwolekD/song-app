@@ -1,0 +1,89 @@
+/* Global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9fc;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-bar,
+.form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+/* Button colors */
+.button.blue {
+    background-color: #3b82f6;
+}
+
+.button.green {
+    background-color: #10b981;
+}
+
+.button.yellow {
+    background-color: #f59e0b;
+}
+
+.button.red {
+    background-color: #ef4444;
+}
+
+.album-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.album-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
