@@ -1,4 +1,3 @@
-// Importujemy Express 
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -45,9 +44,6 @@ app.put('/albums/:id/img', upload.single('img'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "Brak pliku obrazu." });
     }
-    // Sprawdzenie czy jest folder uploads
-
-
     if (album.img) {
         // Jeśli album już ma obraz, usuwamy stary plik
         const oldImgPath = path.join(uploadsPath, album.img.split('/').pop());
