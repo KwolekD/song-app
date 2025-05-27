@@ -4,7 +4,7 @@ import './App.css';
 export default function AlbumList() {
   const [albums, setAlbums] = useState([]);
   const [band, setBand] = useState("");
-  const [newAlbum, setNewAlbum] = useState({ band: "", title: "", year: "" });
+  const [newAlbum, setNewAlbum] = useState({ band: "", title: "", year: "" , genre: "" });
 
 
   const updateLocalStorage = (updatedAlbums) => {
@@ -20,7 +20,6 @@ export default function AlbumList() {
           // Obsługa błędu (np. 404)
           console.warn("Błąd z serwera:", data.message);
           setAlbums([]);
-          alert(data.message || "Wystąpił błąd.");
           return;
         }
 
@@ -36,15 +35,28 @@ export default function AlbumList() {
         alert("Nie udało się pobrać danych.");
       });
   };
+
+
   const addAlbum = () => {
     fetch("http://localhost:3000/albums", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newAlbum)
     })
-      .then(response => response.json())
-      .then(data => updateLocalStorage([...albums, data]))
-      .catch(error => console.error("Błąd dodawania albumu:", error));
+      .then(async response => 
+        {
+          const data = await response.json();
+          if (!response.ok) {
+            // Obsługa błędu (np. 400)
+            console.warn("Błąd z serwera:", data.message);
+            return;
+          }
+          else {
+            setNewAlbum({ band: "", title: "", year: "", genre: "" });
+            updateLocalStorage([...albums, data]);
+          }
+        })
+        .catch(error => console.error("Błąd dodawania albumu:", error));
   };
   const updateAlbum = (id, newTitle) => {
     fetch(`http://localhost:3000/albums/${id}`, {
@@ -75,7 +87,7 @@ export default function AlbumList() {
   useEffect(() => {
     const storedAlbums = localStorage.getItem("albums");
     if (storedAlbums) {
-      setAlbums(JSON.parse(storedAlbums));
+      setAlbums(JSON.parse(storedAlbums)  );
     } else {
       fetch("http://localhost:3000/albums")
         .then(response => response.json())
@@ -97,6 +109,12 @@ export default function AlbumList() {
           type="text"
           placeholder="Wpisz nazwę zespołu"
           value={band}
+          onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                fetchBandAlbums();
+              }
+            }
+          }
           onChange={(e) => setBand(e.target.value)}
           className="input"
         />
@@ -123,19 +141,32 @@ export default function AlbumList() {
           className="input"
         />
         <input
-          type="text"
+          type="number"
           placeholder="Rok"
           value={newAlbum.year}
           onChange={(e) =>
             setNewAlbum({ ...newAlbum, year: e.target.value })}
           className="input"
         />
-        <button onClick={addAlbum} className="button green">Dodaj Album</button>
+        <input 
+          type="text"
+          placeholder="Gatunek"
+          value={newAlbum.genre}
+          onChange={(e) =>
+            setNewAlbum({ ...newAlbum, genre: e.target.value })}
+          className="input"
+        />
+        <button onClick={addAlbum} disabled={
+          !newAlbum.band || !newAlbum.title || !newAlbum.year || !newAlbum.genre
+        } className="button green">Dodaj Album</button>
       </div>
 
       <ul className="album-list">
         {albums.map(album => (
           <li key={album.id} className="album-item">
+            <div className="album-cover-container">
+              <img src={album.cover || "https://placehold.co/100"} alt={`${album.band} - ${album.title}`} className="album-cover" />
+            </div>
             <span>
               <strong>{album.band}</strong> - {album.title} ({album.year})
             </span>

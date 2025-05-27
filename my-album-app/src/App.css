@@ -61,6 +61,12 @@ body {
     background-color: #10b981;
 }
 
+button.green:disabled {
+  background-color: #ccc;    /* kolor, gdy disabled */
+  color: #666;
+  cursor: not-allowed;
+}
+
 .button.yellow {
     background-color: #f59e0b;
 }
@@ -77,10 +83,25 @@ body {
 
 .album-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #eee;
     padding: 12px 0;
+}
+
+.album-item .span {
+    justify-self: start;
+    font-size: 16px;
+    color: #333;
+    align-self:flex-start;
+}
+
+.album-item .album-cover-container {
+    padding: 10px;
+    align-items: center;
+}
+
+.album-item  .action-buttons {
+    justify-self: end;
 }
 
 .action-buttons {
