@@ -12,6 +12,7 @@ backend/.env
 backend/.env.test
 backend/coverage/
 backend/dist/
+backend/uploads/
 
 # Frontend (React)
 my-album-app/node_modules/
